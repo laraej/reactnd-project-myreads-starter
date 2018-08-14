@@ -6,7 +6,7 @@ class Bookshelf extends React.Component {
     const books = this.props.books.filter((book) => book.shelf === this.props.id)
         .map((book) => (
           <li>
-            <Book imageUrl={ book.imageLinks.thumbnail } title={ book.title} authors={ book.authors } shelf={ this.props.id } />
+            <Book book={ book } />
           </li>
         ))
 

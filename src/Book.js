@@ -6,19 +6,19 @@ class Book extends React.Component {
     return (
       <div className="book">
         <div className="book-top">
-          <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: 'url(' + this.props.imageUrl + ')' }}></div>
+          <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: 'url(' + this.props.book.imageLinks.thumbnail + ')' }}></div>
           <div className="book-shelf-changer">
             <select>
               <option value="move" disabled>Move to...</option>
-              <MoveToOption id="currentlyReading" shelf={ this.props.shelf } title="Currently Reading" />
-              <MoveToOption id="wantToRead" shelf={ this.props.shelf } title="Want to Read" />
-              <MoveToOption id="read" shelf={ this.props.shelf } title="Read" />
-              <MoveToOption id="none" shelf={ this.props.shelf } title="None" />
+              <MoveToOption id="currentlyReading" shelf={ this.props.book.shelf } title="Currently Reading" />
+              <MoveToOption id="wantToRead" shelf={ this.props.book.shelf } title="Want to Read" />
+              <MoveToOption id="read" shelf={ this.props.book.shelf } title="Read" />
+              <MoveToOption id="none" shelf={ this.props.book.shelf } title="None" />
             </select>
           </div>
         </div>
-        <div className="book-title">{ this.props.title }</div>
-        <div className="book-authors">{ this.props.authors.join(", ") }</div>
+        <div className="book-title">{ this.props.book.title }</div>
+        <div className="book-authors">{ this.props.book.authors.join(", ") }</div>
       </div>
     )
   }
