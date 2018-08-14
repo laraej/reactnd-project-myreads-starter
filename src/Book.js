@@ -10,10 +10,10 @@ class Book extends React.Component {
           <div className="book-shelf-changer">
             <select>
               <option value="move" disabled>Move to...</option>
-              <MoveToOption id="currentlyReading" shelf={ this.props.book.shelf } title="Currently Reading" />
-              <MoveToOption id="wantToRead" shelf={ this.props.book.shelf } title="Want to Read" />
-              <MoveToOption id="read" shelf={ this.props.book.shelf } title="Read" />
-              <MoveToOption id="none" shelf={ this.props.book.shelf } title="None" />
+              <MoveToOption id="currentlyReading" book={ this.props.book } title="Currently Reading" />
+              <MoveToOption id="wantToRead" book={ this.props.book } title="Want to Read" />
+              <MoveToOption id="read" book={ this.props.book } title="Read" />
+              <MoveToOption id="none" book={ this.props.book } title="None" />
             </select>
           </div>
         </div>
