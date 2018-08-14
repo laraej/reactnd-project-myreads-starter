@@ -1,8 +1,14 @@
 import React from 'react'
+import Book from './Book.js'
 
 class Bookshelf extends React.Component {
   render() {
-    const books = this.props.children.map((book) => <li>{ book }</li>);
+    const books = this.props.books.filter((book) => book.shelf === this.props.id)
+        .map((book) => (
+          <li>
+            <Book imageUrl={ book.imageLinks.thumbnail } title={ book.title} authors={ book.authors } />
+          </li>
+        ))
 
     return (
       <div className="bookshelf">
