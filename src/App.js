@@ -1,4 +1,5 @@
 import React from 'react'
+import Book from './Book.js'
 import Bookshelf from './Bookshelf.js'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -12,15 +13,33 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    books: []
+    books: [],
+    searchResults: [],
   }
+  constructor(props) {
+    super(props)
 
+    this.search = this.search.bind(this)
+  }
+  search(event) {
+    BooksAPI.search(event.target.value).then((searchResults) => {
+      this.setState((prevState, props) => {
+        return {searchResults: searchResults}
+      })
+    })
+  }
   render() {
     BooksAPI.getAll().then((books) => {
       this.setState((prevState, props) => {
         return {books: books}
       })
     })
+
+    const searchResults = this.state.searchResults.map((book) => (
+      <li key={ book.id }>
+        <Book book={ book } />
+      </li>
+    ));
 
     return (
       <div className="app">
@@ -37,12 +56,14 @@ class BooksApp extends React.Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input type="text" placeholder="Search by title or author" onChange={ this.search } />
 
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+                { searchResults }
+              </ol>
             </div>
           </div>
         ) : (
