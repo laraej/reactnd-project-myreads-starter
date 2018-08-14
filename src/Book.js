@@ -1,19 +1,27 @@
 import React from 'react'
-import MoveToOption from './MoveToOption.js'
+import * as BooksAPI from './BooksAPI'
 
 class Book extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.move = this.move.bind(this)
+  }
+  move(event) {
+    BooksAPI.update(this.props.book, event.target.value)
+  }
   render() {
     return (
       <div className="book">
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: 'url(' + this.props.book.imageLinks.thumbnail + ')' }}></div>
           <div className="book-shelf-changer">
-            <select defaultValue={ this.props.book.shelf }>
+            <select defaultValue={ this.props.book.shelf } onChange={ this.move }>
               <option value="move" disabled>Move to...</option>
-              <MoveToOption id="currentlyReading" book={ this.props.book } title="Currently Reading" />
-              <MoveToOption id="wantToRead" book={ this.props.book } title="Want to Read" />
-              <MoveToOption id="read" book={ this.props.book } title="Read" />
-              <MoveToOption id="none" book={ this.props.book } title="None" />
+              <option value="currentlyReading">Currently Reading</option>
+              <option value="wantToRead">Want to Read</option>
+              <option value="read">Read</option>
+              <option value="none">None</option>
             </select>
           </div>
         </div>
