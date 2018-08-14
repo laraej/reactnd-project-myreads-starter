@@ -8,7 +8,7 @@ class Book extends React.Component {
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 192, backgroundImage: 'url(' + this.props.book.imageLinks.thumbnail + ')' }}></div>
           <div className="book-shelf-changer">
-            <select>
+            <select defaultValue={ this.props.book.shelf }>
               <option value="move" disabled>Move to...</option>
               <MoveToOption id="currentlyReading" book={ this.props.book } title="Currently Reading" />
               <MoveToOption id="wantToRead" book={ this.props.book } title="Want to Read" />
