@@ -1,4 +1,5 @@
 import React from 'react'
+import MoveToOption from './MoveToOption.js'
 
 class Book extends React.Component {
   render() {
@@ -9,10 +10,10 @@ class Book extends React.Component {
           <div className="book-shelf-changer">
             <select>
               <option value="move" disabled>Move to...</option>
-              <option value="currentlyReading" selected={ this.props.shelf === "currentlyReading" }>Currently Reading</option>
-              <option value="wantToRead" selected={ this.props.shelf === "wantToRead" }>Want to Read</option>
-              <option value="read" selected={ this.props.shelf === "read" }>Read</option>
-              <option value="none" selected={ this.props.shelf === "none" }>None</option>
+              <MoveToOption id="currentlyReading" shelf={ this.props.shelf } title="Currently Reading" />
+              <MoveToOption id="wantToRead" shelf={ this.props.shelf } title="Want to Read" />
+              <MoveToOption id="read" shelf={ this.props.shelf } title="Read" />
+              <MoveToOption id="none" shelf={ this.props.shelf } title="None" />
             </select>
           </div>
         </div>
