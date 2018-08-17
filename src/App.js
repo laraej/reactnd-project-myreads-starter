@@ -20,6 +20,22 @@ class BooksApp extends React.Component {
     super(props)
 
     this.search = this.search.bind(this)
+    this.onBookMove = this.onBookMove.bind(this)
+
+    BooksAPI.getAll().then((books) => {
+      this.setState((prevState, props) => {
+        return {books: books}
+      })
+    })
+  }
+  onBookMove(book, shelf) {
+    BooksAPI.update(book, shelf)
+
+    book.shelf = shelf
+
+    this.setState((prevState, props) => {
+      return {books: prevState.books}
+    })
   }
   search(event) {
     BooksAPI.search(event.target.value).then((searchResults) => {
@@ -29,15 +45,9 @@ class BooksApp extends React.Component {
     })
   }
   render() {
-    BooksAPI.getAll().then((books) => {
-      this.setState((prevState, props) => {
-        return {books: books}
-      })
-    })
-
     const searchResults = this.state.searchResults.map((book) => (
       <li key={ book.id }>
-        <Book book={ book } />
+        <Book book={ book } onMove={ this.onBookMove } />
       </li>
     ));
 
@@ -73,9 +83,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Bookshelf title="Currently Reading" id="currentlyReading" books={ this.state.books } />
-                <Bookshelf title="Want to Read" id="wantToRead" books={ this.state.books } />
-                <Bookshelf title="Read" id="read" books={ this.state.books } />
+                <Bookshelf title="Currently Reading" id="currentlyReading" books={ this.state.books } onBookMove={ this.onBookMove } />
+                <Bookshelf title="Want to Read" id="wantToRead" books={ this.state.books } onBookMove={ this.onBookMove } />
+                <Bookshelf title="Read" id="read" books={ this.state.books } onBookMove={ this.onBookMove } />
               </div>
             </div>
             <div className="open-search">

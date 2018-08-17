@@ -1,5 +1,4 @@
 import React from 'react'
-import * as BooksAPI from './BooksAPI'
 
 class Book extends React.Component {
   constructor(props) {
@@ -8,7 +7,7 @@ class Book extends React.Component {
     this.move = this.move.bind(this)
   }
   move(event) {
-    BooksAPI.update(this.props.book, event.target.value)
+    this.props.onMove(this.props.book, event.target.value)
   }
   render() {
     return (

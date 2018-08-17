@@ -6,7 +6,7 @@ class Bookshelf extends React.Component {
     const books = this.props.books.filter((book) => book.shelf === this.props.id)
         .map((book) => (
           <li key={ book.id }>
-            <Book book={ book } />
+            <Book book={ book } onMove={ this.props.onBookMove }/>
           </li>
         ))
 
