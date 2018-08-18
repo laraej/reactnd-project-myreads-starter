@@ -15,6 +15,7 @@ class BooksApp extends React.Component {
     showSearchPage: false,
     books: [],
     searchResults: [],
+    shelves: {},
   }
   constructor(props) {
     super(props)
@@ -24,17 +25,30 @@ class BooksApp extends React.Component {
 
     BooksAPI.getAll().then((books) => {
       this.setState((prevState, props) => {
-        return {books: books}
+        const shelves = {}
+
+        for (const book of books)
+          shelves[book.id] = book.shelf
+
+        return {books: books, shelves: shelves}
       })
     })
   }
   onBookMove(book, shelf) {
-    BooksAPI.update(book, shelf)
-
-    book.shelf = shelf
-
     this.setState((prevState, props) => {
-      return {books: prevState.books}
+      const shelves = {}
+
+      shelves[book.id] = shelf
+
+      return {shelves: Object.assign(prevState.shelves, shelves)}
+    })
+
+    BooksAPI.update(book, shelf).then(() => {
+      BooksAPI.getAll().then((books) => {
+        this.setState((prevState, props) => {
+          return {books: books}
+        })
+      })
     })
   }
   search(event) {
@@ -47,7 +61,7 @@ class BooksApp extends React.Component {
   render() {
     const searchResults = this.state.searchResults.map((book) => (
       <li key={ book.id }>
-        <Book book={ book } onMove={ this.onBookMove } />
+        <Book book={ book } shelf={ this.state.shelves[book.id] } onMove={ this.onBookMove } />
       </li>
     ));
 
@@ -83,9 +97,9 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <Bookshelf title="Currently Reading" id="currentlyReading" books={ this.state.books } onBookMove={ this.onBookMove } />
-                <Bookshelf title="Want to Read" id="wantToRead" books={ this.state.books } onBookMove={ this.onBookMove } />
-                <Bookshelf title="Read" id="read" books={ this.state.books } onBookMove={ this.onBookMove } />
+                <Bookshelf title="Currently Reading" id="currentlyReading" books={ this.state.books } shelves={ this.state.shelves } onBookMove={ this.onBookMove } />
+                <Bookshelf title="Want to Read" id="wantToRead" books={ this.state.books } shelves={ this.state.shelves } onBookMove={ this.onBookMove } />
+                <Bookshelf title="Read" id="read" books={ this.state.books } shelves={ this.state.shelves } onBookMove={ this.onBookMove } />
               </div>
             </div>
             <div className="open-search">

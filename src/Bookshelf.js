@@ -3,10 +3,10 @@ import Book from './Book.js'
 
 class Bookshelf extends React.Component {
   render() {
-    const books = this.props.books.filter((book) => book.shelf === this.props.id)
+    const books = this.props.books.filter((book) => this.props.shelves[book.id] === this.props.id)
         .map((book) => (
           <li key={ book.id }>
-            <Book book={ book } onMove={ this.props.onBookMove }/>
+            <Book book={ book } shelf={ this.props.shelves[book.id] } onMove={ this.props.onBookMove }/>
           </li>
         ))
 
