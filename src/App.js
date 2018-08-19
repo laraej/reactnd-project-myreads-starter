@@ -54,7 +54,7 @@ class BooksApp extends React.Component {
   search(event) {
     BooksAPI.search(event.target.value).then((searchResults) => {
       this.setState((prevState, props) => {
-        return {searchResults: searchResults}
+        return {searchResults: Array.isArray(searchResults) ? searchResults : []}
       })
     })
   }
