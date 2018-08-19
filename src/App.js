@@ -70,7 +70,10 @@ class BooksApp extends React.Component {
         {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+              <a className="close-search" onClick={() => {
+                window.history.pushState({}, "MyReads", "/")
+                this.setState({ showSearchPage: false })
+              }}>Close</a>
               <div className="search-books-input-wrapper">
                 {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -103,7 +106,10 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true, searchResults: [] })}>Add a book</a>
+              <a onClick={() => {
+                window.history.pushState({}, "MyReads Search", "/search")
+                this.setState({ showSearchPage: true, searchResults: [] })
+              }}>Add a book</a>
             </div>
           </div>
         )}
