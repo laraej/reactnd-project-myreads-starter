@@ -8,7 +8,9 @@ Install MyReads with 'npm install'.
 
 ## Run
 
-Run MyReads with 'npm start'.
+Run MyReads with 'npm start'. 
+
+To stop running press Ctrl-C on the terminal.
 
 ## Support
 
